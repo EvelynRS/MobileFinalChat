@@ -47,7 +47,13 @@ export default class Chat extends Component {
   listener = () => {
     var dbRef = firebaseSDK.ref("https://chat-module-8c706.firebaseio.com/chat_messages");
     dbRef.on("value", function(snapshot) {
-    console.log(snapshot.val());
+      firebaseSDK.refOn().then((solve)=>{
+        this.setState({chatData:solve})
+      }).then(()=>{
+        let data=this.state.chatData
+      }).catch((fail)=>{
+        console.log(fail)
+      })
     }, function (errorObject) {
       console.log("The read failed: " + errorObject.code);
     }
